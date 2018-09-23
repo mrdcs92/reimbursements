@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import model.Employee;
 import model.Manager;
+import model.Reimbursement;
 import service.EmployeeService;
 import service.ManagerService;
 
@@ -49,7 +51,6 @@ public class RequestHelper {
 		}
 
 		if (uri.equals("/AngJSWebApp/tryLogin.do")) {
-
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			boolean isManager = Boolean.valueOf(request.getParameter("isManager"));
@@ -57,29 +58,35 @@ public class RequestHelper {
 			String element;
 
 			if (isManager) {
-
 				Manager manager = ManagerService.managerLogin(email, password);
-//				if (manager != null) {
-//					response.sendRedirect("/TestApp/manager.html");
-//				}
-				Type manType = new TypeToken<Manager>() {}.getType();
+				Type manType = new TypeToken<Manager>() {
+				}.getType();
 				element = gson.toJson(manager, manType);
-
-
 			} else {
-
 				Employee employee = EmployeeService.employeeLogin(email, password);
-//				if (employee != null) {
-//					response.sendRedirect("/TestApp/employee.html");
-//				}
-				Type empType = new TypeToken<Employee>() {}.getType();
+				Type empType = new TypeToken<Employee>() {
+				}.getType();
 				element = gson.toJson(employee, empType);
-
 			}
 
 			response.setContentType("application/json");
 			response.getWriter().print(element);
+		}
 
+		if (uri.equals("/AngJSWebApp/getReimbursements.do")) {
+			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
+
+			GsonBuilder gsonBuilder = new GsonBuilder();  
+			gsonBuilder.serializeNulls();  
+			Gson gson = gsonBuilder.create();
+
+			List<Reimbursement> reimbursements = EmployeeService.getReimbursements(employeeId);
+			Type remType = new TypeToken<List<Reimbursement>>() {}.getType();
+			JsonElement element = gson.toJsonTree(reimbursements, remType);
+
+			JsonArray jsonArray = element.getAsJsonArray();
+			response.setContentType("application/json");
+			response.getWriter().print(jsonArray);
 		}
 
 	}

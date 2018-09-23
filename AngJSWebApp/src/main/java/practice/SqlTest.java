@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Employee;
+import model.Reimbursement;
+import service.EmployeeService;
 import util.JdbcConnection;
 
 public class SqlTest {
@@ -15,33 +17,25 @@ public class SqlTest {
 	public static void main(String[] args) {
 		
 		System.out.println("testing");
-		System.out.println(getAllEmployees());
-		getAllEmployees();
-		
+		System.out.println(getReimbursements(1));
+
 	}
 	
-	public static List<Employee> getAllEmployees() {
+	public static List<Reimbursement> getReimbursements(int employeeId) {
 		
-		List<Employee> employees = new ArrayList<Employee>();
+		List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 		
-		try {
-			Connection conn = JdbcConnection.getConnection();
-			
-			String sql = "select user_id, username, password, email from employees";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			
-			while (rs.next()) {
-				employees.add(new Employee(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"), rs.getString("email")));
-			}
-			ps.close();
-			return employees;
-			
-		} catch (SQLException e) {
-			e.getMessage();
+		List<Reimbursement> resolvedRems = EmployeeService.resolvedReimbursements(employeeId);
+		List<Reimbursement> pendingRems = EmployeeService.pendingReimbursements(employeeId);
+		
+		for (Reimbursement rem : resolvedRems) {
+			reimbursements.add(rem);
+		}
+		for (Reimbursement rem: pendingRems) {
+			reimbursements.add(rem);
 		}
 		
-		return null;
+		return reimbursements;
 	}
 	
 }

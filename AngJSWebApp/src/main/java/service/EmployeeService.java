@@ -1,7 +1,10 @@
 package service;
 
+import java.util.List;
+
 import dao.EmployeeDaoImpl;
 import model.Employee;
+import model.Reimbursement;
 
 public class EmployeeService {
 
@@ -16,5 +19,17 @@ public class EmployeeService {
 	
 	public static Employee employeeLogin(String email, String password) {
 		return EmployeeDaoImpl.getInstance().employeeLogin(email, password);
+	}
+	
+	public static List<Reimbursement> getReimbursements(int employeeId) {
+		return EmployeeDaoImpl.getInstance().getReimbursements(employeeId);
+	}
+	
+	public static List<Reimbursement> resolvedReimbursements(int employeeId){
+		return EmployeeDaoImpl.getInstance().resolvedReimbursements(employeeId);
+	}
+	
+	public static List<Reimbursement> pendingReimbursements(int employeeId){
+		return EmployeeDaoImpl.getInstance().pendingReimbursements(employeeId);
 	}
 }

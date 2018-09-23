@@ -58,7 +58,7 @@ public class ManagerDaoImpl implements ManagerDao {
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				employees.add(new Employee(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"), rs.getString("email")));
+				//employees.add(new Employee(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"), rs.getString("email")));
 			}
 			ps.close();
 			return employees;
