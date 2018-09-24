@@ -1,9 +1,64 @@
 <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <h1>this is the employee page</h1>
-                <p>{{vm.nameParam}}</p>
-                <p>{{vm.idParam}}</p>
-            </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>this is the employee page</h1>
+            <p>{{vm.nameParam}}</p>
+            <p>{{vm.idParam}}</p>
         </div>
     </div>
+
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="reimbursements-tab" data-toggle="tab" data-target="#reimbursements" role="tab"
+                aria-controls="reimbursements" aria-selected="true">Reimbursements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" role="tab" aria-controls="contact"
+                aria-selected="false">Contact</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="reimbursements" role="tabpanel" aria-labelledby="reimbursements-tab">
+            <div class="row rem-row">
+                <div class="col-md-10 mx-auto">
+                    <table ng-show="!vm.isBusy" class="table table-hover table-bordered all-reqs">
+                        <thead>
+                            <tr>
+                                <th>Request Date</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Resolve Date</th>
+                                <th>Manager</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="rem in vm.reimbursements | orderBy:'-remDate'">
+                                <td>{{rem.remDate}}</td>
+                                <td>{{rem.status}}</td>
+                                <td>{{rem.amount | currency}}</td>
+                                <td>{{rem.remDesc}}</td>
+                                <td>{{rem.resDate}}</td>
+                                <td>{{rem.manName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">profiletab</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">contacttab</div>
+    </div>
+
+
+
+
+
+
+
+</div>
