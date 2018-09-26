@@ -2,10 +2,9 @@
 
 ## Employee Functions
 - [x] An Employee can login
-- [ ] An Employee can view the Employee Homepage
+- [x] An Employee can view the Employee Homepage
 - [ ] An Employee can logout
-- [ ] An Employee can submit a reimbursement request
-
+- [x] An Employee can submit a reimbursement request
 - [ ] An Employee can view their pending reimbursement requests
 - [ ] An Employee can view their resolved reimbursement requests
 - [ ] An Employee can view their information
