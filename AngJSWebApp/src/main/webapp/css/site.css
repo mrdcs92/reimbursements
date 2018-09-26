@@ -18,3 +18,7 @@ table.all-reqs td {
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }
+
+.alertMessage {
+    margin-top: 10px;
+}

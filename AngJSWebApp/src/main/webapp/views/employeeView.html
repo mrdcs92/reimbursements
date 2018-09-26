@@ -26,6 +26,7 @@
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row rem-row">
                 <div class="col-md-10 mx-auto">
+                    <wait-cursor display-when="vm.isBusy"></wait-cursor>
                     <table ng-show="!vm.isBusy" class="table table-hover table-bordered all-reqs">
                         <thead>
                             <tr>
@@ -55,6 +56,9 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="row rem-row">
                 <div class="col-md-5 mx-auto">
+                        <div id="errorMessage" class="alertMessage alert alert-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
+                        <div id="successMessage" class="alertMessage alert alert-success" ng-show="vm.successMessage">{{vm.successMessage}}</div>
+                        <wait-cursor display-when="vm.isBusy"></wait-cursor>
                     <form name="remForm">
                         <div class="form-group">
                             <label>Reimbursement Description</label>

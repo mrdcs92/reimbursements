@@ -5,12 +5,16 @@
     "use strict";
 
     angular.module("app")
-        .controller("employeeController", ["$routeParams", "$q", "$http", employeeController]);
+        .controller("employeeController", ["$routeParams", "$q", "$http", "$timeout", employeeController]);
 
-    function employeeController($routeParams, $q, $http) {
+    function employeeController($routeParams, $q, $http, $timeout) {
 
         var vm = this;
+        
         vm.isBusy = false;
+        vm.successMessage = "";
+        vm.errorMessage = "";
+
         vm.filterBy = "";
         vm.sortBy = "-remDate";
         vm.sortReverse = false;
@@ -70,7 +74,8 @@
                     .then(function (response) {
                         console.log(response);
                         vm.isBusy = false;
-                        console.log("reimbursement submitted");
+                        vm.successMessage = "Reimbursement submitted!";
+                        $timeout(function () { vm.successMessage = ""; }, 2000);
                         vm.getReimbursements();
                     }, function (response) {
                         vm.isBusy = false;
