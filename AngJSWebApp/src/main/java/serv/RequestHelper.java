@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import model.Employee;
@@ -87,6 +88,20 @@ public class RequestHelper {
 			JsonArray jsonArray = element.getAsJsonArray();
 			response.setContentType("application/json");
 			response.getWriter().print(jsonArray);
+		}
+		
+		if (uri.equals("/AngJSWebApp/submitReimbursement.do")) {
+			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
+			double amount = Double.parseDouble(request.getParameter("amount"));
+			String remDesc = request.getParameter("remDesc");
+			
+			boolean result = EmployeeService.submitReimbursement(employeeId, amount, remDesc);
+			
+			JsonObject json = new JsonObject();
+			json.addProperty("result", result);
+			
+			response.setContentType("application/json");
+			response.getWriter().print(json);
 		}
 
 	}

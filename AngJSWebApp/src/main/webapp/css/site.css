@@ -9,3 +9,12 @@ table.all-reqs td {
 .rem-row {
     margin-top: 20px;
 }
+
+#btn-submit {
+    margin-left: 15px;
+}
+
+#input-currency {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}

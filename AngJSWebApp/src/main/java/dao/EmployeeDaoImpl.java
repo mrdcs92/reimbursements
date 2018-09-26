@@ -95,7 +95,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 						rs.getString("emp_name"),
 						rs.getInt("man_id"),
 						rs.getString("man_name"),
-						rs.getInt("amount"),
+						rs.getDouble("amount"),
 						rs.getString("rem_desc"),
 						rs.getBlob("receipt")
 						));
@@ -136,7 +136,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 						rs.getString("emp_name"),
 						0,
 						null,
-						rs.getInt("amount"),
+						rs.getDouble("amount"),
 						rs.getString("rem_desc"),
 						rs.getBlob("receipt")
 						));
@@ -148,6 +148,37 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return reimbursements;
 		
+	}
+
+	public boolean submitReimbursement(int employeeId, double amount, String remDesc) {
+		
+		try {
+			Connection conn = JdbcConnection.getConnection();
+			
+			String sql = "call add_reimbursement(?, ?, ?)";
+			PreparedStatement ps = conn.prepareCall(sql);
+			ps.setInt(1, employeeId);
+			ps.setDouble(2, amount);
+			ps.setString(3, remDesc);
+			ps.execute();
+			ps.close();
+			
+			return true;
+			
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		return false;
+	}
+
+	public Employee viewCredentials(int employeeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Employee updateCredentials(int employeeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

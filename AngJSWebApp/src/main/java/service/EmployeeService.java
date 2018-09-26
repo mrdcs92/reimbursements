@@ -32,4 +32,8 @@ public class EmployeeService {
 	public static List<Reimbursement> pendingReimbursements(int employeeId){
 		return EmployeeDaoImpl.getInstance().pendingReimbursements(employeeId);
 	}
+	
+	public static boolean submitReimbursement(int employeeId, double amount, String remDesc) {
+		return EmployeeDaoImpl.getInstance().submitReimbursement(employeeId, amount, remDesc);
+	}
 }

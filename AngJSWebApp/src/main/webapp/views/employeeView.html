@@ -7,23 +7,23 @@
         </div>
     </div>
 
-
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="reimbursements-tab" data-toggle="tab" data-target="#reimbursements" role="tab"
-                aria-controls="reimbursements" aria-selected="true">Reimbursements</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" role="tab" aria-controls="home"
+                aria-selected="true">All Reimbursements</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" role="tab" aria-controls="profile"
-                aria-selected="false">Profile</a>
+                aria-selected="false">Submit Reimbursement</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" role="tab" aria-controls="contact"
                 aria-selected="false">Contact</a>
         </li>
     </ul>
+
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="reimbursements" role="tabpanel" aria-labelledby="reimbursements-tab">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row rem-row">
                 <div class="col-md-10 mx-auto">
                     <table ng-show="!vm.isBusy" class="table table-hover table-bordered all-reqs">
@@ -51,14 +51,31 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">profiletab</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">contacttab</div>
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row rem-row">
+                <div class="col-md-5 mx-auto">
+                    <form name="remForm">
+                        <div class="form-group">
+                            <label>Reimbursement Description</label>
+                            <textarea class="form-control" ng-model="vm.submitDesc" placeholder="Text limited to 280 characters" rows="3" data-min-rows="3" maxlength="280" required
+                                autofocus="" />
+                        </div>
+                        <label>Reimbursement Amount</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" min="0.01" step="0.01" id="input-currency" class="form-control" ng-model="vm.submitAmount" aria-label="Amount (to the nearest dollar)" required>
+                            <button class="btn btn-primary" id="btn-submit" ng-click="vm.submitReimbursement()">Submit</button>    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">edit</div>
+
     </div>
-
-
-
-
-
-
-
+    
 </div>

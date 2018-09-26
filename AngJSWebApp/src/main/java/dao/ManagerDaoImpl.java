@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.Employee;
 import model.Manager;
+import model.Reimbursement;
 import util.JdbcConnection;
 
 public class ManagerDaoImpl implements ManagerDao {
@@ -67,6 +68,16 @@ public class ManagerDaoImpl implements ManagerDao {
 			e.getMessage();
 		}
 		
+		return null;
+	}
+
+	public List<Reimbursement> getAllReimbursements() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Reimbursement resolveReimbursement(int remId) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

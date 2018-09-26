@@ -6,35 +6,30 @@
 
     var app = angular.module("app", ["simpleControls", "ngRoute"]);
 
-    app.config(function ($routeProvider) {
+    app.config(function ($routeProvider, $locationProvider) {
 
-        $routeProvider.when("/", {
+        $routeProvider
+        .when("/", {
             controller: "loginController",
             controllerAs: "vm",
             templateUrl: "./views/loginView.html"
-        });
-
-        $routeProvider.when("/home", {
+        })
+        .when("/home", {
             controller: "homeController",
             controllerAs: "vm",
             templateUrl: "./views/homeView.html"
-        });
-
-        $routeProvider.when("/manager/:username/:userid",{
+        })
+        .when("/manager/:username/:userid",{
             controller: "managerController",
             controllerAs: "vm",
             templateUrl: "./views/managerView.html"
-        });
-
-        $routeProvider.when("/employee/:username/:userid",{
+        })
+        .when("/employee/:username/:userid",{
             controller: "employeeController",
             controllerAs: "vm",
             templateUrl: "./views/employeeView.html"
-        });
-
-
-
-        $routeProvider.otherwise({ redirectTo: "/" });
+        })
+        .otherwise({ redirectTo: "/" });
 
     });
 

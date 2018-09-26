@@ -13,12 +13,12 @@ public class Reimbursement {
 	private String empName;
 	private int manId;
 	private String manName;
-	private int amount;
+	private double amount;
 	private String remDesc;
 	private Blob receipt;
 	
 	public Reimbursement(int remId, Date remDate, String status, Date resDate, int empId, String empName, int manId,
-			String manName, int amount, String remDesc, Blob receipt) {
+			String manName, double amount, String remDesc, Blob receipt) {
 		super();
 		this.remId = remId;
 		this.remDate = remDate;
@@ -101,7 +101,7 @@ public class Reimbursement {
 		this.manName = manName;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
