@@ -4,7 +4,7 @@
 
     "use strict";
 
-    var app = angular.module("app", ["simpleControls", "ngRoute"]);
+    var app = angular.module("app", ["loadDirective", "ngRoute"]);
 
     app.config(function ($routeProvider, $locationProvider) {
 

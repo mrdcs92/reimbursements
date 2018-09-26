@@ -1,10 +1,10 @@
-// simpleControls.js
+// loadDirective.js
 
 (function () {
 
     "use strict";
 
-    angular.module("simpleControls", [])
+    angular.module("loadDirective", [])
         .directive("waitCursor", waitCursor);
 
     function waitCursor() {
