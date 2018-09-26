@@ -9,6 +9,7 @@
 - [ ] An Employee can view their resolved reimbursement requests
 - [ ] An Employee can view their information
 - [ ] An Employee can update their information
+- [ ] Format Date to show time as well?
 
 ## Manager Functions
 - [x] A Manager can login
