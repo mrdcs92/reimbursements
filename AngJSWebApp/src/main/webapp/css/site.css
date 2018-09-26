@@ -22,3 +22,24 @@ table.all-reqs td {
 .alertMessage {
     margin-top: 10px;
 }
+
+.fa-times-circle {
+    color: red;
+}
+
+.fa-question-circle {
+    color: gray;
+}
+
+.fa-check-circle {
+    color: green;
+}
+
+.fix {
+    text-align: center;
+}
+
+td i {
+    display: inline;
+}
+

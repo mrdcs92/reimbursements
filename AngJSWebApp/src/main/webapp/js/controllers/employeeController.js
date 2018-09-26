@@ -16,8 +16,8 @@
         vm.errorMessage = "";
 
         vm.filterBy = "";
-        vm.sortBy = "-remDate";
-        vm.sortReverse = false;
+        vm.sortType = "remDate";
+        vm.sortReverse = true;
 
         vm.nameParam = $routeParams.username;
         let idParam = $routeParams.userid;
