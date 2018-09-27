@@ -5,10 +5,10 @@
 - [x] An Employee can view the Employee Homepage
 - [ ] An Employee can logout
 - [x] An Employee can submit a reimbursement request
-- [ ] An Employee can view their pending reimbursement requests
-- [ ] An Employee can view their resolved reimbursement requests
-- [ ] An Employee can view their information
-- [ ] An Employee can update their information
+- [x] An Employee can view their pending reimbursement requests
+- [x] An Employee can view their resolved reimbursement requests
+- [x] An Employee can view their information
+- [x] An Employee can update their information
 - [ ] Format Date to show time as well?
 
 ## Manager Functions
