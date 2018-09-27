@@ -17,8 +17,8 @@ public interface EmployeeDao {
 	
 	public boolean submitReimbursement(int employeeId, double amount, String remDesc);
 	
-	public Employee viewCredentials(int employeeId);
+	public Employee getCredentials(int employeeId);
 	
-	public Employee updateCredentials(int employeeId);
+	public boolean updateCredentials(int employeeId, String username, String password, String email);
 
 }

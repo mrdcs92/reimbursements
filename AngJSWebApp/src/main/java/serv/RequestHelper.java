@@ -27,18 +27,6 @@ public class RequestHelper {
 			throws ServletException, IOException {
 
 		String uri = request.getRequestURI();
-		if (uri.equals("/AngJSWebApp/hello.do")) {
-			response.getWriter().append("hello everyone");
-		}
-
-		if (uri.equals("/AngJSWebApp/chomp.do")) {
-			response.getWriter().append("get wrecked");
-		}
-
-		if (uri.equals("/AngJSWebApp/babo.do")) {
-			response.getWriter().append("You posted info");
-			System.out.println(request.getParameter("name"));
-		}
 
 		if (uri.equals("/AngJSWebApp/getall.do")) {
 			List<Employee> employees = ManagerService.getAllEmployees();
@@ -96,6 +84,35 @@ public class RequestHelper {
 			String remDesc = request.getParameter("remDesc");
 			
 			boolean result = EmployeeService.submitReimbursement(employeeId, amount, remDesc);
+			
+			JsonObject json = new JsonObject();
+			json.addProperty("result", result);
+			
+			response.setContentType("application/json");
+			response.getWriter().print(json);
+		}
+		
+		if (uri.equals("/AngJSWebApp/getCredentials.do")) {
+			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
+			
+			Gson gson = new Gson();
+			Type empType = new TypeToken<Employee>() {
+			}.getType();
+			
+			Employee employee = EmployeeService.getCredentials(employeeId);
+
+			String element = gson.toJson(employee, empType);
+			response.setContentType("application/json");
+			response.getWriter().print(element);
+		}
+		
+		if (uri.equals("/AngJSWebApp/updateCredentials.do")) {
+			int employeeId = Integer.valueOf(request.getParameter("userId"));
+			String username = request.getParameter("username");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			
+			boolean result = EmployeeService.updateCredentials(employeeId, username, password, email);
 			
 			JsonObject json = new JsonObject();
 			json.addProperty("result", result);

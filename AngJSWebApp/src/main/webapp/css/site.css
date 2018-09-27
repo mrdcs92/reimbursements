@@ -43,3 +43,7 @@ td i {
     display: inline;
 }
 
+.order-column {
+    color: steelblue !important;
+}
+
