@@ -28,16 +28,16 @@ public class RequestHelper {
 
 		String uri = request.getRequestURI();
 
-		if (uri.equals("/AngJSWebApp/getall.do")) {
-			List<Employee> employees = ManagerService.getAllEmployees();
-			Gson gson = new Gson();
-			JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
-			}.getType());
-
-			JsonArray jsonArray = element.getAsJsonArray();
-			response.setContentType("application/json");
-			response.getWriter().print(jsonArray);
-		}
+//		if (uri.equals("/AngJSWebApp/getall.do")) {
+//			List<Employee> employees = ManagerService.getAllEmployees();
+//			Gson gson = new Gson();
+//			JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
+//			}.getType());
+//
+//			JsonArray jsonArray = element.getAsJsonArray();
+//			response.setContentType("application/json");
+//			response.getWriter().print(jsonArray);
+//		}
 
 		if (uri.equals("/AngJSWebApp/tryLogin.do")) {
 			String email = request.getParameter("email");
@@ -61,7 +61,8 @@ public class RequestHelper {
 			response.setContentType("application/json");
 			response.getWriter().print(element);
 		}
-
+		
+		/////// Employee Services ///////
 		if (uri.equals("/AngJSWebApp/getReimbursements.do")) {
 			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
 
@@ -119,6 +120,21 @@ public class RequestHelper {
 			
 			response.setContentType("application/json");
 			response.getWriter().print(json);
+		}
+		
+		/////// Manager Services ///////
+		if (uri.equals("/AngJSWebApp/getAllReimbursements.do")) {
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.serializeNulls();
+			Gson gson = gsonBuilder.create();
+			
+			List<Reimbursement> reimbursements = ManagerService.getAllReimbursements();
+			Type remType = new TypeToken<List<Reimbursement>>() {}.getType();
+			JsonElement element = gson.toJsonTree(reimbursements, remType);
+
+			JsonArray jsonArray = element.getAsJsonArray();
+			response.setContentType("application/json");
+			response.getWriter().print(jsonArray);
 		}
 
 	}

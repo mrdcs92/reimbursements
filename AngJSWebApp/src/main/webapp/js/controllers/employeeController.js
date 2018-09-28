@@ -13,7 +13,7 @@
 
         vm.isBusy = false;
         vm.tableLoading = false;
-        vm.isSubmitting = false;
+        vm.submitting = false;
         vm.successMessage = "";
         vm.errorMessage = "";
         vm.inputType = "password";
@@ -55,7 +55,7 @@
         }
 
         vm.submitReimbursement = function () {
-            vm.isSubmitting = true;
+            vm.submitting = true;
             if (vm.submitAmount > 0) {
 
                 let data = $.param({
@@ -72,22 +72,24 @@
 
                 $http.post('/AngJSWebApp/submitReimbursement.do', data, config)
                     .then(function (response) {
-                        vm.isSubmitting = false;
-                        if (response.result) {
+                        if (response.data.result) {
+                            vm.submitting = false;
                             vm.successMessage = "Reimbursement submitted!";
                             $timeout(function () { vm.successMessage = ""; }, 2000);
                         } else {
+                            vm.submitting = false;
                             vm.errorMessage = "Error submitting reimbursement.";
                             $timeout(function () { vm.errorMessage = ""; }, 2000);
                         }
                         vm.getReimbursements();
                     }, function (response) {
-                        vm.isSubmitting = false;
+                        vm.submitting = false;
                         vm.errorMessage = "Error submitting reimbursement.";
                         $timeout(function () { vm.errorMessage = ""; }, 2000);
                     });
+            } else {
+                vm.submitting = false;
             }
-            vm.isSubmitting = false;
         }
 
         vm.submitCredentials = function () {
@@ -108,7 +110,7 @@
             $http.post('/AngJSWebApp/updateCredentials.do', data, config)
                 .then(function (response) {
                     vm.isBusy = false;
-                    if (!response.result) {
+                    if (!response.data.result) {
                         vm.errorMessage = "Error: entered email already exists.";
                         $timeout(function () { vm.errorMessage = ""; }, 2000);
                     } else {

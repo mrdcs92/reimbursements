@@ -5,6 +5,7 @@ import java.util.List;
 import dao.ManagerDaoImpl;
 import model.Employee;
 import model.Manager;
+import model.Reimbursement;
 
 public class ManagerService {
 
@@ -23,6 +24,10 @@ public class ManagerService {
 	
 	public static List<Employee> getAllEmployees(){
 		return ManagerDaoImpl.getInstance().getAllEmployees();
+	}
+	
+	public static List<Reimbursement> getAllReimbursements(){
+		return ManagerDaoImpl.getInstance().getAllReimbursements();
 	}
 	
 }

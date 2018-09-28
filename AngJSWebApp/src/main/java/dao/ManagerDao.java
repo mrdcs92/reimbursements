@@ -14,6 +14,10 @@ public interface ManagerDao {
 	
 	public List<Reimbursement> getAllReimbursements();
 	
+	public List<Reimbursement> pendingReimbursements();
+	
+	public List<Reimbursement> resolvedReimbursements();
+	
 	public Reimbursement resolveReimbursement(int remId);
 	
 }

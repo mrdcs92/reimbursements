@@ -6,4 +6,87 @@
             <p>{{vm.idParam}}</p>
         </div>
     </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy =''" role="tab" aria-controls="home"
+                aria-selected="true">All Reimbursements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='pending'" role="tab" aria-controls="profile"
+                aria-selected="false">Pending Reimbursements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='!pending'" role="tab" aria-controls="contact"
+                aria-selected="false">Resolved Reimbursements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" data-target=""="#contact" role="tab" aria-controls="contact"
+                aria-selected="false">All Employees</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row rem-row">
+                    <div class="col-md-10 mx-auto">
+                        <wait-cursor display-when="vm.tableLoading"></wait-cursor>
+                        <table ng-show="!vm.tableLoading" class="table table-hover table-bordered all-reqs">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a class="order-column" ng-click="vm.sortType = 'remDate'; vm.sortReverse = !vm.sortReverse">
+                                            Request Date
+                                            <span ng-show="vm.sortType == 'remDate' && !vm.sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="vm.sortType == 'remDate' && vm.sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a class="order-column" ng-click="vm.sortType = 'resDate'; vm.sortReverse = !vm.sortReverse">
+                                            Resolve Date
+                                            <span ng-show="vm.sortType == 'resDate' && !vm.sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="vm.sortType == 'resDate' && vm.sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a class="order-column" ng-click="vm.sortType = 'amount'; vm.sortReverse = !vm.sortReverse">
+                                            Amount
+                                            <span ng-show="vm.sortType == 'amount' && !vm.sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="vm.sortType == 'amount' && vm.sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a class="order-column" ng-click="vm.sortType = 'empName'; vm.sortReverse = !vm.sortReverse">
+                                            Employee
+                                            <span ng-show="vm.sortType == 'empName' && !vm.sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="vm.sortType == 'empName' && vm.sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </th>
+                                    <th>Description</th>
+                                    <th>Manager</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rem in vm.reimbursements | orderBy:vm.sortType:vm.sortReverse | filter:vm.filterBy">
+                                    <td>{{rem.remDate}}</td>
+                                    <td>{{rem.resDate}}</td>
+                                    <td>{{rem.amount | currency}}</td>
+                                    <td>{{rem.empName}}</td>
+                                    <td>{{rem.remDesc}}</td>
+                                    <td>{{rem.manName}}</td>
+                                    <td class="fix"><i ng-class="{'fas fa-times-circle': rem.status == 'denied', 'fas fa-question-circle': rem.status == 'pending', 'fas fa-check-circle': rem.status == 'approved'}"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+
 </div>
