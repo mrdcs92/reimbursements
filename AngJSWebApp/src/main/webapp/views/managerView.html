@@ -31,6 +31,16 @@
                 <div class="row rem-row">
                     <div class="col-md-10 mx-auto">
                         <wait-cursor display-when="vm.tableLoading"></wait-cursor>
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    </div>  
+                                    <input ng-model="vm.searchEmployee" type="text" class="form-control" placeholder="Search by employee" required>
+                                </div>
+                            </div>
+                        </div>
                         <table ng-show="!vm.tableLoading" class="table table-hover table-bordered all-reqs">
                             <thead>
                                 <tr>
@@ -68,7 +78,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="rem in vm.reimbursements | orderBy:vm.sortType:vm.sortReverse | filter:vm.filterBy">
+                                <tr ng-repeat="rem in vm.reimbursements | orderBy:vm.sortType:vm.sortReverse | filter:vm.filterBy | filter:{empName: vm.searchEmployee}">
                                     <td>{{rem.remDate}}</td>
                                     <td>{{rem.resDate}}</td>
                                     <td>{{rem.amount | currency}}</td>
