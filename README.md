@@ -15,12 +15,12 @@
 - [x] A Manager can login
 - [ ] A Manager can view the Manager Homepage
 - [ ] A Manager can logout
-- [ ] A Manager can approve/deny pending reimbursement requests
+- [x] A Manager can approve/deny pending reimbursement requests
 - [x] A Manager can view all pending requests from all employees
 - [ ] A Manager can view images of the receipts from reimbursement requests (hard /do last / optional)
 - [x] A Manager can view all resolved requests from all employees and see which manager resolved it
 - [ ] A Manager can view all Employees
-- [ ] A Manager can view reimbursement requests from a single Employee
+- [x] A Manager can view reimbursement requests from a single Employee
 
 ## Bonus
 - [ ] An Employee can upload an image of his/her receipt as part of the reimbursement request 
