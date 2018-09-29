@@ -55,22 +55,22 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			Connection conn = JdbcConnection.getConnection();
 
-			String sql = "select user_id, username, password, email from employees";
+			String sql = "select user_id, username, email from employees";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				// employees.add(new Employee(rs.getInt("user_id"), rs.getString("username"),
-				// rs.getString("password"), rs.getString("email")));
+				Employee employee = new Employee();
+				employee.setUserId(rs.getInt("user_id"));
+				employee.setUsername(rs.getString("username"));
+				employee.setEmail(rs.getString("email"));
+				employees.add(employee);
 			}
 			ps.close();
-			return employees;
-
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-
-		return null;
+		return employees;
 	}
 
 	public List<Reimbursement> getAllReimbursements() {

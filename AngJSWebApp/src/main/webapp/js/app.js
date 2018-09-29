@@ -6,7 +6,7 @@
 
     var app = angular.module("app", ["loadDirective", "ngRoute"]);
 
-    app.config(function ($routeProvider, $locationProvider) {
+    app.config(function ($routeProvider) {
 
         $routeProvider
         .when("/", {
@@ -19,19 +19,42 @@
             controllerAs: "vm",
             templateUrl: "./views/homeView.html"
         })
-        .when("/manager/:username/:userid",{
+        .when("/manager",{
             controller: "managerController",
             controllerAs: "vm",
-            templateUrl: "./views/managerView.html"
+            templateUrl: "./views/managerView.html",
+            resolve:{
+                "check": function(authFactory, $location) {
+                    console.log(authFactory.getRole());
+                    if (authFactory.getRole() != "manager") {
+                        $location.path("/");
+                    }
+                }
+            }
         })
-        .when("/employee/:username/:userid",{
+        .when("/employee",{
             controller: "employeeController",
             controllerAs: "vm",
-            templateUrl: "./views/employeeView.html"
+            templateUrl: "./views/employeeView.html",
+            resolve:{
+                "check": function(authFactory, $location) {
+                    console.log(authFactory.getRole());
+                    if (authFactory.getRole() != "employee") {
+                        $location.path("/");
+                    }
+                }
+            }
         })
         .otherwise({ redirectTo: "/" });
-
     });
 
+    app.run(["$rootScope", "$location", function ($rootScope, $location) {
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            if(next == current) {
+                event.preventDefault();
+                $location.path("/");
+            }
+        });
+    }]);
 
 })();

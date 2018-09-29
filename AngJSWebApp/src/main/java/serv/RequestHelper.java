@@ -5,7 +5,6 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,18 +29,11 @@ public class RequestHelper {
 
 		String uri = request.getRequestURI();
 
-//		if (uri.equals("/AngJSWebApp/getall.do")) {
-//			List<Employee> employees = ManagerService.getAllEmployees();
-//			Gson gson = new Gson();
-//			JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
-//			}.getType());
-//
-//			JsonArray jsonArray = element.getAsJsonArray();
-//			response.setContentType("application/json");
-//			response.getWriter().print(jsonArray);
-//		}
+		
 
 		if (uri.equals("/AngJSWebApp/tryLogin.do")) {
+			
+			request.getSession().invalidate();
 			
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
@@ -53,8 +45,11 @@ public class RequestHelper {
 				Manager manager = ManagerService.managerLogin(email, password);
 				if (manager != null) {
 					HttpSession session = request.getSession(true);
-					Cookie c = new Cookie("oatmeal", "raisin");
-					response.addCookie(c);
+					System.out.println(session.getId());
+					session.setAttribute("logId", manager.getUserId());
+					session.setAttribute("isManager", true);
+					System.out.println(session.getAttribute("logId"));
+					System.out.println(session.getAttribute("isManager"));
 				}
 				Type manType = new TypeToken<Manager>() {
 				}.getType();
@@ -62,9 +57,12 @@ public class RequestHelper {
 			} else {
 				Employee employee = EmployeeService.employeeLogin(email, password);
 				if (employee != null) {
-					HttpSession session = request.getSession();
-					Cookie c = new Cookie("oatmeal", "raisin");
-					response.addCookie(c);
+					HttpSession session = request.getSession(true);
+					System.out.println(session.getId());
+					session.setAttribute("logId", employee.getUserId());
+					session.setAttribute("isManager", true);
+					System.out.println(session.getAttribute("logId"));
+					System.out.println(session.getAttribute("isManager"));
 				}
 				Type empType = new TypeToken<Employee>() {
 				}.getType();
@@ -73,6 +71,22 @@ public class RequestHelper {
 
 			response.setContentType("application/json");
 			response.getWriter().print(element);
+		}
+		
+		if (uri.equals("/AngJSWebApp/getCreds.do")) {
+			HttpSession sess = request.getSession(false);
+			JsonObject json = new JsonObject();
+			if (sess != null) {
+				int userId = (Integer) sess.getAttribute("logId");
+				boolean isManager = (Boolean) sess.getAttribute("isManager");
+				
+				json.addProperty("userId", userId);
+				json.addProperty("isManager", isManager);
+			}
+			json.addProperty("result", "success");
+			
+			response.setContentType("application/json");
+			response.getWriter().print(json);
 		}
 		
 		/////// Employee Services ///////
@@ -165,6 +179,17 @@ public class RequestHelper {
 			response.setContentType("application/json");
 			response.getWriter().print(element);
 		}
+		
+		if (uri.equals("/AngJSWebApp/getAllEmployees.do")) {
+		List<Employee> employees = ManagerService.getAllEmployees();
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
+		}.getType());
+
+		JsonArray jsonArray = element.getAsJsonArray();
+		response.setContentType("application/json");
+		response.getWriter().print(jsonArray);
+	}
 
 	}
 }

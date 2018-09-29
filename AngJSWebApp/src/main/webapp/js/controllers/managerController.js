@@ -5,15 +5,16 @@
     "use strict";
 
     angular.module("app")
-        .controller("managerController", ["$routeParams", "$q", "$http", "$timeout", managerController]);
+        .controller("managerController", ["$routeParams", "$q", "$http", "$timeout", "authFactory", managerController]);
 
-    function managerController($routeParams, $q, $http, $timeout) {
+    function managerController($routeParams, $q, $http, $timeout, authFactory) {
 
         var vm = this;
 
         vm.isBusy = false;
         vm.tableLoading = false;
         vm.submitting = false;
+        vm.loadingEmps = false;
         vm.successMessage = "";
         vm.errorMessage = "";
         vm.inputType = "password";
@@ -22,8 +23,8 @@
         vm.sortType = "remDate";
         vm.sortReverse = true;
 
-        vm.nameParam = $routeParams.username;
-        let idParam = $routeParams.userid;
+        let idParam = authFactory.getUID();
+        vm.idParam = authFactory.getUID();
         let reimbursements;
 
         vm.tempRem = null;
@@ -60,8 +61,6 @@
 
             if (vm.tempRem.status == "pending") {
 
-                console.log("this is during resolvereimbursement");
-                console.log(vm.tempRem);
                 let data = $.param({
                     remId: vm.tempRem.remId,
                     status: newStatus,
@@ -92,6 +91,29 @@
             }
         }
 
+        vm.getAllEmployees = function () {
+            vm.loadingEmps = true;
+            console.log("why are you not being reached");
+            let data = $.param({});
+            let config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+
+            $http.post('/AngJSWebApp/getAllEmployees.do', data, config)
+                .then(function (response) {
+                    console.log(response);
+                    let repData = response.data;
+                    vm.loadingEmps = false;
+                    vm.empTable = repData;
+                },
+                    function (response) {
+                        vm.loadingEmps = false;
+                    });
+            console.log("does my request not exsist");
+        }
+
         vm.setRem = function (rem) {
             if (rem.status == "pending") {
                 vm.tempRem = rem;
@@ -99,7 +121,10 @@
             }
         }
 
-        vm.getAllReimbursements();
+        if (authFactory.getRole() == "manager") {
+            vm.getAllEmployees();
+            vm.getAllReimbursements();
+        }
     }
 
 })();
