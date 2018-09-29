@@ -5,8 +5,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,6 +42,7 @@ public class RequestHelper {
 //		}
 
 		if (uri.equals("/AngJSWebApp/tryLogin.do")) {
+			
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			boolean isManager = Boolean.valueOf(request.getParameter("isManager"));
@@ -48,11 +51,21 @@ public class RequestHelper {
 
 			if (isManager) {
 				Manager manager = ManagerService.managerLogin(email, password);
+				if (manager != null) {
+					HttpSession session = request.getSession(true);
+					Cookie c = new Cookie("oatmeal", "raisin");
+					response.addCookie(c);
+				}
 				Type manType = new TypeToken<Manager>() {
 				}.getType();
 				element = gson.toJson(manager, manType);
 			} else {
 				Employee employee = EmployeeService.employeeLogin(email, password);
+				if (employee != null) {
+					HttpSession session = request.getSession();
+					Cookie c = new Cookie("oatmeal", "raisin");
+					response.addCookie(c);
+				}
 				Type empType = new TypeToken<Employee>() {
 				}.getType();
 				element = gson.toJson(employee, empType);
@@ -135,6 +148,22 @@ public class RequestHelper {
 			JsonArray jsonArray = element.getAsJsonArray();
 			response.setContentType("application/json");
 			response.getWriter().print(jsonArray);
+		}
+		
+		if (uri.equals("/AngJSWebApp/resolveReimbursement.do")) {
+			int remId = Integer.valueOf(request.getParameter("remId"));
+			String status = request.getParameter("status");
+			int manId = Integer.valueOf(request.getParameter("manId"));
+			
+			Reimbursement reimbursement = ManagerService.resolveReimbursement(remId, status, manId);
+			
+			Gson gson = new Gson();
+			Type remType = new TypeToken<Reimbursement>() {
+			}.getType();
+			String element = gson.toJson(reimbursement, remType);
+			
+			response.setContentType("application/json");
+			response.getWriter().print(element);
 		}
 
 	}

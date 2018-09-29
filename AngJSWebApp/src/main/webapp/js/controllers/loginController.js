@@ -32,6 +32,7 @@
 
             $http.post('/AngJSWebApp/tryLogin.do', data, config)
                 .then(function (response) {
+                    console.log(response);
                     let data = response.data;
                     if (data) {
                         vm.isBusy = false;

@@ -18,6 +18,6 @@ public interface ManagerDao {
 	
 	public List<Reimbursement> resolvedReimbursements();
 	
-	public Reimbursement resolveReimbursement(int remId);
+	public Reimbursement resolveReimbursement(int remId, String resStatus, int manId);
 	
 }

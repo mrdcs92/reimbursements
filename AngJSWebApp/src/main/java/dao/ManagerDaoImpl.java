@@ -147,9 +147,58 @@ public class ManagerDaoImpl implements ManagerDao {
 		return reimbursements;
 	}
 
-	public Reimbursement resolveReimbursement(int remId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Reimbursement resolveReimbursement(int remId, String resStatus, int manId) {
+
+		Reimbursement reimbursement = new Reimbursement();
+		
+		try {
+			Connection conn = JdbcConnection.getConnection();
+			String sql = "update reimbursements " + 
+					"set status = ?, res_date = (TO_TIMESTAMP(LOCALTIMESTAMP, 'DD-MON-RR HH.MI.SSXFF PM')), man_id = ? " + 
+					"where rem_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, resStatus);
+			ps.setInt(2, manId);
+			ps.setInt(3, remId);
+			ps.execute();
+			ps.close();
+
+			reimbursement = getReimbursement(remId);
+			
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		
+		return reimbursement;
+	}
+	
+	public Reimbursement getReimbursement(int remId) {
+		Reimbursement reimbursement = new Reimbursement();
+		
+		try {
+			Connection conn = JdbcConnection.getConnection();
+			String sql = "select "
+					+ "status, res_date, man_id, m.username as man_name "
+					+ "from "
+					+ "reimbursements rem join managers m "
+					+ "on rem.man_id = m.user_id "
+					+ "where rem_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, remId);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				reimbursement.setStatus(rs.getString("status"));
+				reimbursement.setResDate(rs.getDate("res_date"));
+				reimbursement.setManId(rs.getInt("man_id"));
+				reimbursement.setManName(rs.getString("man_name"));
+			}
+			ps.close();
+			
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		return reimbursement;
 	}
 
 }

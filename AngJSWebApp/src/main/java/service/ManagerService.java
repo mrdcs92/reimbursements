@@ -30,4 +30,7 @@ public class ManagerService {
 		return ManagerDaoImpl.getInstance().getAllReimbursements();
 	}
 	
+	public static Reimbursement resolveReimbursement(int remId, String resStatus, int manId) {
+		return ManagerDaoImpl.getInstance().resolveReimbursement(remId, resStatus, manId);
+	}
 }
