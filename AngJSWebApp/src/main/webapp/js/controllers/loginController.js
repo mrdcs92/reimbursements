@@ -33,17 +33,15 @@
 
             $http.post('/AngJSWebApp/tryLogin.do', data, config)
                 .then(function (response) {
-                    console.log(response);
                     let data = response.data;
                     if (data) {
                         vm.isBusy = false;
-                        console.log(data);
 
                         if (isManager) {
-                            authFactory.setAuth(data.userId, "manager");
+                            authFactory.setAuth(data.userId, data.username, "manager");
                             $location.path("/manager");
                         } else {
-                            authFactory.setAuth(data.userId, "employee");
+                            authFactory.setAuth(data.userId, data.username, "employee");
                             $location.path("/employee");
                         }
 

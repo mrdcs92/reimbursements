@@ -5,9 +5,9 @@
     "use strict";
 
     angular.module("app")
-        .controller("managerController", ["$routeParams", "$q", "$http", "$timeout", "authFactory", managerController]);
+        .controller("managerController", ["$location", "$http", "$timeout", "authFactory", managerController]);
 
-    function managerController($routeParams, $q, $http, $timeout, authFactory) {
+    function managerController($location, $http, $timeout, authFactory) {
 
         var vm = this;
 
@@ -25,6 +25,7 @@
 
         let idParam = authFactory.getUID();
         vm.idParam = authFactory.getUID();
+        vm.displayName = authFactory.getName();
         let reimbursements;
 
         vm.tempRem = null;
@@ -93,7 +94,6 @@
 
         vm.getAllEmployees = function () {
             vm.loadingEmps = true;
-            console.log("why are you not being reached");
             let data = $.param({});
             let config = {
                 headers: {
@@ -103,7 +103,6 @@
 
             $http.post('/AngJSWebApp/getAllEmployees.do', data, config)
                 .then(function (response) {
-                    console.log(response);
                     let repData = response.data;
                     vm.loadingEmps = false;
                     vm.empTable = repData;
@@ -111,7 +110,11 @@
                     function (response) {
                         vm.loadingEmps = false;
                     });
-            console.log("does my request not exsist");
+        }
+
+        vm.logOut = function () {
+            authFactory.clearAuth();
+            $location.path("/");
         }
 
         vm.setRem = function (rem) {

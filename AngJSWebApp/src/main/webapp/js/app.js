@@ -14,11 +14,6 @@
             controllerAs: "vm",
             templateUrl: "./views/loginView.html"
         })
-        .when("/home", {
-            controller: "homeController",
-            controllerAs: "vm",
-            templateUrl: "./views/homeView.html"
-        })
         .when("/manager",{
             controller: "managerController",
             controllerAs: "vm",

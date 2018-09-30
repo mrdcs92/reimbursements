@@ -55,7 +55,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			Connection conn = JdbcConnection.getConnection();
 
-			String sql = "select user_id, username, email from employees";
+			String sql = "select user_id, username, email from employees order by user_id";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 

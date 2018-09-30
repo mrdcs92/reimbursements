@@ -10,7 +10,7 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li>
-                <a class="nav-link">Sign Out</a>
+                <a class="nav-link" ng-click="vm.logOut()">Sign Out</a>
             </li>
         </ul>
     </div>
@@ -19,7 +19,7 @@
 <div class="container main-view">
     <div class="row top-row">
         <div class="col-md-6 mx-auto text-center">
-            <h3 class="top-h3">this is the manager page</h3>
+            <h3 class="top-h3"> Manager: {{vm.displayName}}</h3>
         </div>
     </div>
 
@@ -155,7 +155,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Reimbursement</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -165,8 +165,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.resolveReimbursement('approved')">Approve</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="vm.resolveReimbursement('denied')">Deny</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="vm.resolveReimbursement('denied')">Deny</button>
                 </div>
             </div>
         </div>

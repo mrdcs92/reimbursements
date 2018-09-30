@@ -5,9 +5,9 @@
     "use strict";
 
     angular.module("app")
-        .controller("employeeController", ["$routeParams", "$q", "$http", "$timeout", "authFactory", employeeController]);
+        .controller("employeeController", ["$location", "$http", "$timeout", "authFactory", employeeController]);
 
-    function employeeController($routeParams, $q, $http, $timeout, authFactory) {
+    function employeeController($location, $http, $timeout, authFactory) {
 
         var vm = this;
 
@@ -24,7 +24,7 @@
 
         let idParam = authFactory.getUID();
         vm.idParam = authFactory.getUID();
-        vm.displayName = "";
+        vm.displayName = authFactory.getName();
         let reimbursements;
 
         vm.getReimbursements = function () {
@@ -158,6 +158,11 @@
                 vm.inputType = "text";
             else
                 vm.inputType = "password";
+        }
+
+        vm.logOut = function () {
+            authFactory.clearAuth();
+            $location.path("/");
         }
 
         if (authFactory.getRole() == "employee") {
