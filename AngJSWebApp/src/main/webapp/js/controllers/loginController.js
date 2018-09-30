@@ -10,6 +10,7 @@
 
         let vm = this;
         vm.isBusy = false;
+        vm.errorMessage = "";
 
         authFactory.clearAuth();
 
@@ -48,7 +49,8 @@
 
                     } else {
                         vm.isBusy = false;
-                        $("#test").append("<p>incorrect login</p>");
+                        vm.errorMessage = "Email or password is incorrect.";
+                        $timeout(function () { vm.errorMessage = ""; }, 2000);
                     }
                 }, function (response) {
                     vm.isBusy = false;

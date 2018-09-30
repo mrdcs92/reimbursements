@@ -29,12 +29,10 @@ public class RequestHelper {
 
 		String uri = request.getRequestURI();
 
-		
-
 		if (uri.equals("/AngJSWebApp/tryLogin.do")) {
-			
+
 			request.getSession().invalidate();
-			
+
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			boolean isManager = Boolean.valueOf(request.getParameter("isManager"));
@@ -43,153 +41,154 @@ public class RequestHelper {
 
 			if (isManager) {
 				Manager manager = ManagerService.managerLogin(email, password);
+
 				if (manager != null) {
 					HttpSession session = request.getSession(true);
-					System.out.println(session.getId());
 					session.setAttribute("logId", manager.getUserId());
 					session.setAttribute("isManager", true);
-					System.out.println(session.getAttribute("logId"));
-					System.out.println(session.getAttribute("isManager"));
 				}
+
 				Type manType = new TypeToken<Manager>() {
 				}.getType();
 				element = gson.toJson(manager, manType);
+
 			} else {
 				Employee employee = EmployeeService.employeeLogin(email, password);
+
 				if (employee != null) {
 					HttpSession session = request.getSession(true);
-					System.out.println(session.getId());
 					session.setAttribute("logId", employee.getUserId());
 					session.setAttribute("isManager", true);
-					System.out.println(session.getAttribute("logId"));
-					System.out.println(session.getAttribute("isManager"));
 				}
+
 				Type empType = new TypeToken<Employee>() {
 				}.getType();
 				element = gson.toJson(employee, empType);
-			}
 
+			}
 			response.setContentType("application/json");
 			response.getWriter().print(element);
 		}
-		
+
 		if (uri.equals("/AngJSWebApp/getCreds.do")) {
 			HttpSession sess = request.getSession(false);
 			JsonObject json = new JsonObject();
 			if (sess != null) {
 				int userId = (Integer) sess.getAttribute("logId");
 				boolean isManager = (Boolean) sess.getAttribute("isManager");
-				
+
 				json.addProperty("userId", userId);
 				json.addProperty("isManager", isManager);
 			}
 			json.addProperty("result", "success");
-			
+
 			response.setContentType("application/json");
 			response.getWriter().print(json);
 		}
-		
+
 		/////// Employee Services ///////
 		if (uri.equals("/AngJSWebApp/getReimbursements.do")) {
 			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
 
-			GsonBuilder gsonBuilder = new GsonBuilder();  
-			gsonBuilder.serializeNulls();  
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.serializeNulls();
 			Gson gson = gsonBuilder.create();
 
 			List<Reimbursement> reimbursements = EmployeeService.getReimbursements(employeeId);
-			Type remType = new TypeToken<List<Reimbursement>>() {}.getType();
+			Type remType = new TypeToken<List<Reimbursement>>() {
+			}.getType();
 			JsonElement element = gson.toJsonTree(reimbursements, remType);
 
 			JsonArray jsonArray = element.getAsJsonArray();
 			response.setContentType("application/json");
 			response.getWriter().print(jsonArray);
 		}
-		
+
 		if (uri.equals("/AngJSWebApp/submitReimbursement.do")) {
 			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
 			double amount = Double.parseDouble(request.getParameter("amount"));
 			String remDesc = request.getParameter("remDesc");
-			
+
 			boolean result = EmployeeService.submitReimbursement(employeeId, amount, remDesc);
-			
+
 			JsonObject json = new JsonObject();
 			json.addProperty("result", result);
-			
+
 			response.setContentType("application/json");
 			response.getWriter().print(json);
 		}
-		
+
 		if (uri.equals("/AngJSWebApp/getCredentials.do")) {
 			int employeeId = Integer.valueOf(request.getParameter("employeeId"));
-			
+
 			Gson gson = new Gson();
 			Type empType = new TypeToken<Employee>() {
 			}.getType();
-			
+
 			Employee employee = EmployeeService.getCredentials(employeeId);
 
 			String element = gson.toJson(employee, empType);
 			response.setContentType("application/json");
 			response.getWriter().print(element);
 		}
-		
+
 		if (uri.equals("/AngJSWebApp/updateCredentials.do")) {
 			int employeeId = Integer.valueOf(request.getParameter("userId"));
 			String username = request.getParameter("username");
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			
+
 			boolean result = EmployeeService.updateCredentials(employeeId, username, password, email);
-			
+
 			JsonObject json = new JsonObject();
 			json.addProperty("result", result);
-			
+
 			response.setContentType("application/json");
 			response.getWriter().print(json);
 		}
-		
+
 		/////// Manager Services ///////
 		if (uri.equals("/AngJSWebApp/getAllReimbursements.do")) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.serializeNulls();
 			Gson gson = gsonBuilder.create();
-			
+
 			List<Reimbursement> reimbursements = ManagerService.getAllReimbursements();
-			Type remType = new TypeToken<List<Reimbursement>>() {}.getType();
+			Type remType = new TypeToken<List<Reimbursement>>() {
+			}.getType();
 			JsonElement element = gson.toJsonTree(reimbursements, remType);
 
 			JsonArray jsonArray = element.getAsJsonArray();
 			response.setContentType("application/json");
 			response.getWriter().print(jsonArray);
 		}
-		
+
 		if (uri.equals("/AngJSWebApp/resolveReimbursement.do")) {
 			int remId = Integer.valueOf(request.getParameter("remId"));
 			String status = request.getParameter("status");
 			int manId = Integer.valueOf(request.getParameter("manId"));
-			
+
 			Reimbursement reimbursement = ManagerService.resolveReimbursement(remId, status, manId);
-			
+
 			Gson gson = new Gson();
 			Type remType = new TypeToken<Reimbursement>() {
 			}.getType();
 			String element = gson.toJson(reimbursement, remType);
-			
+
 			response.setContentType("application/json");
 			response.getWriter().print(element);
 		}
-		
-		if (uri.equals("/AngJSWebApp/getAllEmployees.do")) {
-		List<Employee> employees = ManagerService.getAllEmployees();
-		Gson gson = new Gson();
-		JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
-		}.getType());
 
-		JsonArray jsonArray = element.getAsJsonArray();
-		response.setContentType("application/json");
-		response.getWriter().print(jsonArray);
-	}
+		if (uri.equals("/AngJSWebApp/getAllEmployees.do")) {
+			List<Employee> employees = ManagerService.getAllEmployees();
+			Gson gson = new Gson();
+			JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {
+			}.getType());
+
+			JsonArray jsonArray = element.getAsJsonArray();
+			response.setContentType("application/json");
+			response.getWriter().print(jsonArray);
+		}
 
 	}
 }

@@ -1,12 +1,40 @@
 /* site.css */
+html {
+    height: 100vh;
+}
 
-/*
-table.all-reqs th,
-table.all-reqs td {
-    font-size: 10px;
-} */
+body {
+    min-height: 100vh;
+    background: #f8ffae; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#f8ffae, #43c6ac); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient((#f8ffae, #43c6ac)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient((#f8ffae, #43c6ac)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient((#f8ffae, #43c6ac)); /* Standard syntax */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
+
+.main-view {
+    background: white; /* For browsers that do not support gradients */
+    border-radius: 10px;
+    margin-bottom: 30px;
+    min-height: 83vh;
+}
 
 .rem-row {
+    margin-top: 20px;
+}
+
+.top-row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.top-h3 {
     margin-top: 20px;
 }
 
@@ -39,6 +67,10 @@ table.all-reqs td {
     text-align: center;
 }
 
+.all-reqs {
+    margin-bottom: 25px;
+}
+
 td i {
     display: inline;
 }
@@ -46,4 +78,18 @@ td i {
 .order-column {
     color: steelblue !important;
 }
+
+.login-format {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    top: 20vh;
+}
+
+.login-h {
+    margin-bottom: 0.8rem;
+}
+
+
 

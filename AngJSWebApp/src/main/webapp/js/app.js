@@ -25,7 +25,6 @@
             templateUrl: "./views/managerView.html",
             resolve:{
                 "check": function(authFactory, $location) {
-                    console.log(authFactory.getRole());
                     if (authFactory.getRole() != "manager") {
                         $location.path("/");
                     }
@@ -38,7 +37,6 @@
             templateUrl: "./views/employeeView.html",
             resolve:{
                 "check": function(authFactory, $location) {
-                    console.log(authFactory.getRole());
                     if (authFactory.getRole() != "employee") {
                         $location.path("/");
                     }

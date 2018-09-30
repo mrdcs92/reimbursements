@@ -24,6 +24,7 @@
 
         let idParam = authFactory.getUID();
         vm.idParam = authFactory.getUID();
+        vm.displayName = "";
         let reimbursements;
 
         vm.getReimbursements = function () {
@@ -107,6 +108,8 @@
                 }
             }
 
+            let newName = vm.credName;
+
             $http.post('/AngJSWebApp/updateCredentials.do', data, config)
                 .then(function (response) {
                     vm.isBusy = false;
@@ -114,6 +117,7 @@
                         vm.errorMessage = "Error: entered email already exists.";
                         $timeout(function () { vm.errorMessage = ""; }, 2000);
                     } else {
+                        vm.displayName = newName;
                         vm.successMessage = "Credentials updated!";
                         $timeout(function () { vm.successMessage = ""; }, 2000);
                     }
@@ -140,6 +144,7 @@
                 .then(function (response) {
                     let data = response.data;
                     vm.credName = data.username;
+                    vm.displayName = data.username;
                     vm.credEmail = data.email;
                     vm.credPass = data.password;
                     vm.isBusy = false;

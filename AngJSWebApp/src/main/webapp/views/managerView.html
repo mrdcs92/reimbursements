@@ -1,23 +1,40 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <h1>this is the manager page</h1>
-            <p>{{vm.idParam}}</p>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="navbar-brand">
+                Expense Reimbursement System
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <a class="nav-link">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container main-view">
+    <div class="row top-row">
+        <div class="col-md-6 mx-auto text-center">
+            <h3 class="top-h3">this is the manager page</h3>
         </div>
     </div>
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy =''" role="tab" aria-controls="home"
-                aria-selected="true">All Reimbursements</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy =''"
+                role="tab" aria-controls="home" aria-selected="true">All Reimbursements</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='pending'" role="tab" aria-controls="profile"
-                aria-selected="false">Pending Reimbursements</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='pending'"
+                role="tab" aria-controls="profile" aria-selected="false">Pending Reimbursements</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='!pending'" role="tab" aria-controls="contact"
-                aria-selected="false">Resolved Reimbursements</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" data-target="#home" ng-click="vm.filterBy='!pending'"
+                role="tab" aria-controls="contact" aria-selected="false">Resolved Reimbursements</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" role="tab" aria-controls="profile"
@@ -34,14 +51,15 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                </div>  
-                                <input ng-model="vm.searchEmployee" type="text" class="form-control" placeholder="Search by employee" required>
+                                </div>
+                                <input ng-model="vm.searchEmployee" type="text" class="form-control" placeholder="Search by employee"
+                                    required>
                             </div>
                             <div id="errorMessage" class="alertMessage alert alert-danger text-center" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
                             <div id="successMessage" class="alertMessage alert alert-success text-center" ng-show="vm.successMessage">{{vm.successMessage}}</div>
                         </div>
                     </div>
-                    <table ng-show="!vm.tableLoading" class="table table-hover table-bordered">
+                    <table ng-show="!vm.tableLoading" class="table table-hover table-bordered all-reqs">
                         <thead>
                             <tr>
                                 <th>
@@ -91,7 +109,7 @@
                     </table>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -103,8 +121,9 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                </div>  
-                                <input ng-model="vm.searchEmployee" type="text" class="form-control" placeholder="Search by employee" required>
+                                </div>
+                                <input ng-model="vm.searchEmployee" type="text" class="form-control" placeholder="Search by employee"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -117,7 +136,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="emp in vm.empTable | filter:{username: vm.searchEmployee}" >
+                            <tr ng-repeat="emp in vm.empTable | filter:{username: vm.searchEmployee}">
                                 <td>{{emp.email}}</td>
                                 <td>{{emp.username}}</td>
                                 <td>{{emp.userId}}</td>
@@ -131,7 +150,8 @@
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -1,8 +1,25 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <h1>this is the employee page</h1>
-            <p>{{vm.idParam}}</p>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="navbar-brand">
+                Expense Reimbursement System
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <a class="nav-link">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container main-view">
+    <div class="row top-row">
+        <div class="col-md-6 mx-auto text-center">
+            <h3 class="top-h3"> Employee: {{vm.displayName}}</h3>
         </div>
     </div>
 
