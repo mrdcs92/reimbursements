@@ -3,18 +3,17 @@
 ## Employee Functions
 - [x] An Employee can login
 - [x] An Employee can view the Employee Homepage
-- [ ] An Employee can logout
+- [x] An Employee can logout
 - [x] An Employee can submit a reimbursement request
 - [x] An Employee can view their pending reimbursement requests
 - [x] An Employee can view their resolved reimbursement requests
 - [x] An Employee can view their information
 - [x] An Employee can update their information
-- [ ] Format Date to show time as well?
 
 ## Manager Functions
 - [x] A Manager can login
 - [x] A Manager can view the Manager Homepage
-- [ ] A Manager can logout
+- [x] A Manager can logout
 - [x] A Manager can approve/deny pending reimbursement requests
 - [x] A Manager can view all pending requests from all employees
 - [ ] A Manager can view images of the receipts from reimbursement requests (hard /do last / optional)
